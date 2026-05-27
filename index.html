@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#5D55C8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Photo Playbook" />
+    <title>Photo Playbook</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand-block">
+        <p class="eyebrow">Korea Trip Edition</p>
+        <h1>Photo Playbook</h1>
+        <p class="subtitle">把喜欢的姿势、表情、构图和穿搭配色先存好，到现场直接照着拍。</p>
+      </div>
+      <figure class="hero-visual" aria-label="首页头图">
+        <img id="heroImage" alt="Photo Playbook hero" />
+        <figcaption>
+          <button class="cover-btn hero-cover-btn" id="heroImageBtn" type="button">换头图</button>
+          <input id="heroImageInput" type="file" accept="image/*" />
+        </figcaption>
+      </figure>
+      <div class="top-actions">
+        <button class="ghost" id="exportBtn" type="button">导出</button>
+        <label class="ghost file-label">
+          导入
+          <input id="importInput" type="file" accept="application/json" />
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <section class="planner">
+        <div class="planner-copy">
+          <p class="section-kicker">Collections</p>
+          <h2>我的拍照收藏夹</h2>
+          <p class="section-copy">按感觉、场景和穿搭把参考分好类，到现场直接打开对应收藏夹。</p>
+        </div>
+        <div class="mood-grid" id="moodGrid"></div>
+      </section>
+
+      <section class="quick-panel" id="addPanel">
+        <form class="add-form" id="addForm">
+          <div class="form-head">
+            <div>
+              <p class="section-kicker">随手收藏</p>
+              <h2>放一张你喜欢的参考</h2>
+            </div>
+            <button class="primary" type="submit">保存参考</button>
+          </div>
+
+          <div class="upload-zone" id="dropZone">
+            <input id="imageInput" type="file" accept="image/*" />
+            <div class="upload-preview" id="uploadPreview" tabindex="0">
+              <span>+</span>
+              <p>上传、拖入或粘贴截图</p>
+            </div>
+            <input id="coverInput" type="file" accept="image/*" />
+            <div class="field">
+              <label for="imageUrl">或粘贴图片/网页链接</label>
+              <input id="imageUrl" type="url" placeholder="https://..." />
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="titleInput">名字</label>
+              <input id="titleInput" type="text" placeholder="圣水洞咖啡店窗边坐姿" required />
+            </div>
+            <div class="field">
+              <label for="vibeInput">收藏夹</label>
+              <select id="vibeInput"></select>
+            </div>
+            <div class="field">
+              <label for="sceneInput">场景</label>
+              <select id="sceneInput"></select>
+            </div>
+            <div class="field">
+              <label for="shotInput">画面</label>
+              <select id="shotInput"></select>
+            </div>
+            <div class="field">
+              <label for="colorInput">穿搭/配色</label>
+              <input id="colorInput" type="text" placeholder="白衬衫、牛仔、黑包" />
+            </div>
+            <div class="field outfit-field">
+              <label for="outfitInput">穿搭照片</label>
+              <label class="outfit-upload">
+                上传多张
+                <input id="outfitInput" type="file" accept="image/*" multiple />
+              </label>
+              <div class="outfit-preview" id="outfitPreview"></div>
+            </div>
+            <div class="field">
+              <label for="tagInput">标签</label>
+              <input id="tagInput" type="text" placeholder="回头, 不看镜头, 拿咖啡" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="noteInput">动作拆解 / 给拍照的人看的提示</label>
+            <textarea id="noteInput" rows="4" placeholder="头微侧，眼睛看窗外；手机稍微放低，人物放右侧三分之一，留出窗框。"></textarea>
+          </div>
+        </form>
+      </section>
+
+      <section class="shoot-mode" id="shootPanel">
+        <div>
+          <p class="section-kicker">现场模式</p>
+          <h2>到地方以后，只看最该看的几张</h2>
+        </div>
+        <div class="field search">
+          <label for="searchInput">搜索</label>
+          <input id="searchInput" type="search" placeholder="姿势、地点、颜色、标签、备注..." />
+        </div>
+        <div class="shoot-controls">
+          <select id="shootScene"></select>
+          <select id="shootVibe"></select>
+          <button class="primary" id="shootBtn" type="button">给我今天的拍法</button>
+        </div>
+        <div class="filter-groups" aria-label="快速筛选">
+          <div>
+            <p class="filter-label">场景</p>
+            <div class="chip-row" id="sceneFilters"></div>
+          </div>
+          <div>
+            <p class="filter-label">收藏夹</p>
+            <div class="chip-row" id="vibeFilters"></div>
+          </div>
+          <div>
+            <p class="filter-label">画面</p>
+            <div class="chip-row" id="shotFilters"></div>
+          </div>
+          <div>
+            <p class="filter-label">配色</p>
+            <div class="chip-row" id="colorFilters"></div>
+          </div>
+          <div>
+            <p class="filter-label">标签</p>
+            <div class="chip-row" id="tagFilters"></div>
+          </div>
+        </div>
+        <div class="shoot-tips" id="shootTips"></div>
+      </section>
+
+      <section id="libraryPanel">
+        <div class="library-head">
+          <div>
+            <p class="section-kicker">我的参考库</p>
+            <h2><span id="countLabel">0</span> 条参考</h2>
+          </div>
+          <button class="ghost danger" id="clearFiltersBtn" type="button">清空筛选</button>
+        </div>
+        <div class="empty-state" id="emptyState">
+          <h3>先收藏 3 到 5 张最喜欢的照片</h3>
+          <p>不用整理得很完美。先把“我想拍成这样”的感觉存下来，标签之后可以慢慢补。</p>
+        </div>
+        <div class="card-grid" id="cardGrid"></div>
+      </section>
+    </main>
+
+    <dialog id="detailDialog">
+      <div class="dialog-body" id="dialogBody"></div>
+      <button class="dialog-close" id="closeDialog" type="button" aria-label="关闭">×</button>
+    </dialog>
+
+    <div class="toast" id="toast" role="status"></div>
+
+    <nav class="mobile-dock" aria-label="快速操作">
+      <a href="#addPanel">收藏</a>
+      <a href="#shootPanel">现场</a>
+      <a href="#libraryPanel">图库</a>
+    </nav>
+
+    <script src="app.js"></script>
+  </body>
+</html>

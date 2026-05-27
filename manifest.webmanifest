@@ -1,0 +1,17 @@
+{
+  "name": "Photo Playbook",
+  "short_name": "Playbook",
+  "description": "旅行拍照参考、姿势、构图、穿搭配色和现场拍法收藏夹。",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#FBFAFF",
+  "theme_color": "#5D55C8",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
